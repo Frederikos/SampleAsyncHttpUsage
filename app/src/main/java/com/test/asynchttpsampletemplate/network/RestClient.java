@@ -7,7 +7,7 @@ import android.net.NetworkInfo;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.test.asynchttpsampletemplate.R;
-import com.test.asynchttpsampletemplate.network.listeners.JsonResultCallback;
+import com.test.asynchttpsampletemplate.network.listeners.JsonResultListener;
 import com.test.asynchttpsampletemplate.network.listeners.PlacesCallback;
 import com.test.asynchttpsampletemplate.utils.Utils;
 
@@ -29,7 +29,7 @@ public class RestClient {
     }
 
     //execute this method for every request. put additional pre request logic here.
-    private static boolean checkAndSetupRestClientForRequest(Activity activity, JsonResultCallback callback) {
+    private static boolean checkAndSetupRestClientForRequest(Activity activity, JsonResultListener callback) {
         Timber.tag(RestClient.class.getSimpleName());
         boolean result = isOnline(activity);
 

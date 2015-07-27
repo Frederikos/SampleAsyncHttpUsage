@@ -4,6 +4,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+
+import com.test.asynchttpsampletemplate.network.RestClient;
+import com.test.asynchttpsampletemplate.network.listeners.PlacesCallback;
+import com.test.asynchttpsampletemplate.network.models.PlaceModel;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -11,6 +18,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initControls();
+    }
+
+    private void initControls() {
+        final TextView tvText = (TextView) findViewById(R.id.tvText);
+        findViewById(R.id.btnLoad).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RestClient.getPlacesAsync(MainActivity.this, new PlacesCallback(findViewById(R.id.progressBar)) {
+                    @Override
+                    public void requestComplete(ArrayList<PlaceModel> places) {
+                        tvText.setText("Count loaded places - " + places.size());
+                    }
+                });
+            }
+        });
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.test.asynchttpsampletemplate.network.listeners;
 
+import android.view.View;
+
 import com.test.asynchttpsampletemplate.network.models.PlaceModel;
 import com.test.asynchttpsampletemplate.utils.Utils;
 
@@ -11,10 +13,14 @@ import java.util.ArrayList;
 
 import timber.log.Timber;
 
-public abstract class PlacesCallback implements JsonResultCallback {
+public abstract class PlacesCallback extends JsonResultListener {
+
+    public PlacesCallback(View progressView) {
+        super(progressView);
+    }
 
     @Override
-    public void onResult(JSONObject jsonObject) {
+    public void onRequestComplete(JSONObject jsonObject) {
         if (jsonObject != null) {
             ArrayList<PlaceModel> result = new ArrayList<>();
             try {
@@ -31,6 +37,6 @@ public abstract class PlacesCallback implements JsonResultCallback {
         }
     }
 
-    abstract void requestComplete(ArrayList<PlaceModel> places);
+    public abstract void requestComplete(ArrayList<PlaceModel> places);
 
 }
