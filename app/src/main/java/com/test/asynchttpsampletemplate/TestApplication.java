@@ -12,11 +12,11 @@ public class TestApplication extends Application {
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
         } else {
-            Timber.plant(new ReseaseTree());
+            Timber.plant(new ReleaseTree());
         }
     }
 
-    class ReseaseTree extends Timber.Tree {
+    class ReleaseTree extends Timber.Tree {
         @Override
         protected void log(int priority, String tag, String message, Throwable t) {
             return;

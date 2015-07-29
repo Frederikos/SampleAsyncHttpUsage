@@ -8,10 +8,6 @@ public abstract class JsonResultListener {
 
     private View progressIndicator;
 
-    public JsonResultListener() {
-
-    }
-
     public JsonResultListener(View progressIndicator) {
         if (progressIndicator != null) {
             this.progressIndicator = progressIndicator;
