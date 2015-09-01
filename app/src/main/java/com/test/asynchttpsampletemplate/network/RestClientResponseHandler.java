@@ -36,7 +36,6 @@ public abstract class RestClientResponseHandler extends JsonHttpResponseHandler 
         //add retry logic if needed
         if (response == null && statusCode == 0) {
             onNeedRetry();
-            return;
         } else {
             Utils.showErrorInSnackBar(activity, (response != null) ? response.optString("error", activity.getString(R.string.network_error)) : activity.getString(R.string.network_error));
             onResult(null);

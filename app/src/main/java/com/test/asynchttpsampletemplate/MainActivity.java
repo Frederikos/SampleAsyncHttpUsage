@@ -8,9 +8,11 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.test.asynchttpsampletemplate.network.RestClient;
-import com.test.asynchttpsampletemplate.network.listeners.PlacesCallback;
+import com.test.asynchttpsampletemplate.network.listeners.Callback;
 import com.test.asynchttpsampletemplate.network.models.PlaceModel;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,9 +28,9 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btnLoad).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RestClient.getPlacesAsync(MainActivity.this, new PlacesCallback(findViewById(R.id.progressBar)) {
+                RestClient.getPlacesAsync(MainActivity.this, new Callback<List<PlaceModel>>(findViewById(R.id.progressBar)) {
                     @Override
-                    public void requestComplete(ArrayList<PlaceModel> places) {
+                    public void onRequestComplete(List<PlaceModel> places) {
                         tvText.setText("Count loaded places - " + places.size());
                     }
                 });

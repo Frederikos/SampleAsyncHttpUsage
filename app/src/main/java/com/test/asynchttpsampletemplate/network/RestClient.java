@@ -7,11 +7,13 @@ import android.net.NetworkInfo;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.test.asynchttpsampletemplate.R;
-import com.test.asynchttpsampletemplate.network.listeners.JsonResultListener;
-import com.test.asynchttpsampletemplate.network.listeners.PlacesCallback;
+import com.test.asynchttpsampletemplate.network.listeners.Callback;
+import com.test.asynchttpsampletemplate.network.models.PlaceModel;
 import com.test.asynchttpsampletemplate.utils.Utils;
 
 import org.json.JSONObject;
+
+import java.util.List;
 
 import timber.log.Timber;
 
@@ -29,7 +31,7 @@ public class RestClient {
     }
 
     //execute this method for every request. put additional pre request logic here.
-    private static boolean checkAndSetupRestClientForRequest(Activity activity, JsonResultListener callback) {
+    private static boolean checkAndSetupRestClientForRequest(Activity activity, Callback callback) {
         Timber.tag(RestClient.class.getSimpleName());
         boolean result = isOnline(activity);
 
@@ -41,7 +43,7 @@ public class RestClient {
         return result;
     }
 
-    public static void getPlacesAsync(final Activity activity, final PlacesCallback placesCallback) {
+    public static void getPlacesAsync(final Activity activity, final Callback<List<PlaceModel>> placesCallback) {
         if (!checkAndSetupRestClientForRequest(activity, placesCallback)) return;
 
         client.get(RequestUrls.GET_PLACES, null, new RestClientResponseHandler(activity) {
@@ -52,7 +54,7 @@ public class RestClient {
 
             @Override
             void onResult(JSONObject response) {
-                placesCallback.onResult(response);
+                placesCallback.onResult(PlaceModel.createPlaceModelListFromJson(response));
             }
         });
     }

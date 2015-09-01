@@ -1,6 +1,16 @@
 package com.test.asynchttpsampletemplate.network.models;
 
 import com.google.gson.annotations.Expose;
+import com.test.asynchttpsampletemplate.utils.Utils;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import timber.log.Timber;
 
 public class PlaceModel {
     @Expose
@@ -17,6 +27,21 @@ public class PlaceModel {
     private String name;
     @Expose
     private String image;
+
+    public static List<PlaceModel> createPlaceModelListFromJson(JSONObject jsonObject) {
+        ArrayList<PlaceModel> result = new ArrayList<>();
+        if (jsonObject != null) {
+            try {
+                JSONArray items = jsonObject.getJSONObject("block").getJSONArray("items");
+                for (int i = 0; i < items.length(); i++) {
+                    result.add(Utils.getGson().fromJson(items.getJSONObject(i).toString(), PlaceModel.class));
+                }
+            } catch (JSONException ex) {
+                Timber.e(ex.toString());
+            }
+        }
+        return result;
+    }
 
     /**
      * @return The id

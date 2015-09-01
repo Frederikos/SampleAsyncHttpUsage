@@ -2,25 +2,25 @@ package com.test.asynchttpsampletemplate.network.listeners;
 
 import android.view.View;
 
-import org.json.JSONObject;
-
-public abstract class JsonResultListener {
+public abstract class Callback<T> {
 
     private View progressIndicator;
 
-    public JsonResultListener(View progressIndicator) {
+    public Callback() {}
+
+    public Callback(View progressIndicator) {
+        this.progressIndicator = progressIndicator;
         if (progressIndicator != null) {
-            this.progressIndicator = progressIndicator;
             progressIndicator.setVisibility(View.VISIBLE);
         }
     }
 
-    public void onResult(JSONObject jsonObject) {
+    public void onResult(T result) {
         if (progressIndicator != null) {
             progressIndicator.setVisibility(View.GONE);
         }
-        onRequestComplete(jsonObject);
+        onRequestComplete(result);
     }
 
-    public abstract void onRequestComplete(JSONObject jsonObject);
+    public abstract void onRequestComplete(T result);
 }
