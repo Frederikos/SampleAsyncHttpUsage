@@ -1,35 +1,51 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.test.asynchttpsampletemplate.MainActivity.MainActivityViewModel" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="@dimen/activity_vertical_margin">
+        android:layout_height="match_parent">
 
-        <com.gc.materialdesign.views.ButtonRectangle
-            android:id="@+id/btnLoad"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:background="@color/progress_bar_color"
-            android:text="@string/load_data" />
+            android:orientation="vertical"
+            android:padding="@dimen/activity_vertical_margin">
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="@android:style/Widget.ProgressBar"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:visibility="gone"
-            android:layout_gravity="center_horizontal" />
+            <com.gc.materialdesign.views.ButtonRectangle
+                android:id="@+id/btnLoad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/progress_bar_color"
+                android:onClick="@{viewModel.onBtnLoadClick}"
+                android:text="@string/load_data" />
 
-        <TextView
-            android:id="@+id/tvText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10dp" />
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="@android:style/Widget.ProgressBar"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:visibility="@{viewModel.isDataLoading ? android.view.View.VISIBLE : android.view.View.GONE}" />
 
-    </LinearLayout>
-</ScrollView>
+            <TextView
+                android:id="@+id/tvText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:text="@{viewModel.placesText}" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</layout>
+

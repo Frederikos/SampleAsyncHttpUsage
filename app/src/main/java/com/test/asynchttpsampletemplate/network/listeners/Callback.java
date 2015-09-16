@@ -1,23 +1,24 @@
 package com.test.asynchttpsampletemplate.network.listeners;
 
-import android.view.View;
+import android.databinding.ObservableField;
 
 public abstract class Callback<T> {
 
-    private View progressIndicator;
+    private ObservableField<Boolean> dataLoadingObserver;
 
-    public Callback() {}
+    public Callback() {
+    }
 
-    public Callback(View progressIndicator) {
-        this.progressIndicator = progressIndicator;
-        if (progressIndicator != null) {
-            progressIndicator.setVisibility(View.VISIBLE);
+    public Callback(ObservableField<Boolean> dataLoadingObserver) {
+        this.dataLoadingObserver = dataLoadingObserver;
+        if (dataLoadingObserver != null) {
+            dataLoadingObserver.set(true);
         }
     }
 
     public void onResult(T result) {
-        if (progressIndicator != null) {
-            progressIndicator.setVisibility(View.GONE);
+        if (dataLoadingObserver != null) {
+            dataLoadingObserver.set(false);
         }
         onRequestComplete(result);
     }
