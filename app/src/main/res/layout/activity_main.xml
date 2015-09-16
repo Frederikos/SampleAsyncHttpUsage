@@ -30,10 +30,10 @@
 
             <ProgressBar
                 android:id="@+id/progressBar"
-                style="@android:style/Widget.ProgressBar"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center_horizontal"
+                android:indeterminate="true"
                 android:visibility="@{viewModel.isDataLoading ? android.view.View.VISIBLE : android.view.View.GONE}" />
 
             <TextView

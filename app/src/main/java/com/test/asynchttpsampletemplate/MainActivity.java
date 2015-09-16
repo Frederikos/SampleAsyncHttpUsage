@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
                     RestClient.getPlacesAsync(MainActivity.this, new Callback<List<PlaceModel>>(isDataLoading) {
                         @Override
                         public void onRequestComplete(List<PlaceModel> places) {
-                            placesText.set("Count loaded places - " + places.size());
+                            placesText.set(String.format(getString(R.string.loaded_places_title), places.size()));
                         }
                     });
                 }
